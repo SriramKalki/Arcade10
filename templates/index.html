@@ -7,10 +7,11 @@
   </head>
   <body>
     <h1>Welcome to the Text Summarization Web App!</h1>
-    <form action='/summarize' method='post'>
+    <form id='summarize-form' action='/summarize' method='post'>
       <textarea name='text' rows='10' cols='50' placeholder='Enter text to summarize'></textarea>
       <button type='submit'>Summarize</button>
     </form>
+    <div id='loading' style='display: none;'>Loading...</div>
     {% with messages = get_flashed_messages() %}
       {% if messages %}
         <ul class='flashes'>
@@ -20,5 +21,10 @@
         </ul>
       {% endif %}
     {% endwith %}
+    <script>
+      document.getElementById('summarize-form').onsubmit = function() {
+        document.getElementById('loading').style.display = 'block';
+      };
+    </script>
   </body>
 </html>

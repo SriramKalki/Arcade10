@@ -3,6 +3,7 @@
   <head>
     <meta charset='utf-8'>
     <title>Text Summarization</title>
+    <link rel='stylesheet' href='/static/styles.css'>
   </head>
   <body>
     <h1>Welcome to the Text Summarization Web App!</h1>
@@ -10,5 +11,14 @@
       <textarea name='text' rows='10' cols='50' placeholder='Enter text to summarize'></textarea>
       <button type='submit'>Summarize</button>
     </form>
+    {% with messages = get_flashed_messages() %}
+      {% if messages %}
+        <ul class='flashes'>
+          {% for message in messages %}
+            <li>{{ message }}</li>
+          {% endfor %}
+        </ul>
+      {% endif %}
+    {% endwith %}
   </body>
 </html>

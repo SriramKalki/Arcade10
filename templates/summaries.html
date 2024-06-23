@@ -17,7 +17,15 @@
         </li>
       {% endfor %}
     </ul>
+    <div>
+      {% if pagination.page > 1 %}
+        <a href='?page={{ pagination.page - 1 }}'>Previous</a>
+      {% endif %}
+      <span>Page {{ pagination.page }} of {{ pagination.pages }}</span>
+      {% if pagination.page < pagination.pages %}
+        <a href='?page={{ pagination.page + 1 }}'>Next</a>
+      {% endif %}
+    </div>
     <a href='/'>Summarize another text</a>
   </body>
 </html>
-"

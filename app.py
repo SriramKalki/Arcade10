@@ -5,7 +5,7 @@ from langdetect import detect
 import math
 
 app = Flask(__name__)
-app.secret_key = 'supersecretkey'
+app.secret_key = 'idk'
 login_manager = LoginManager()
 login_manager.init_app(app)
 
@@ -33,7 +33,7 @@ def summarize_text(text, lang='en'):
 
 @app.route('/')
 def home():
-    return render_template('index.html')
+    return render_template('login.html')
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
@@ -86,3 +86,4 @@ def summaries():
 
 if __name__ == '__main__':
     app.run(debug=True)
+

@@ -2,6 +2,7 @@ from flask import Flask, render_template, request, redirect, url_for, flash
 from flask_login import LoginManager, UserMixin, login_user, login_required, logout_user, current_user
 from transformers import pipeline
 from langdetect import detect
+import math
 
 app = Flask(__name__)
 app.secret_key = 'supersecretkey'
@@ -68,7 +69,20 @@ def summarize():
 @app.route('/summaries')
 @login_required
 def summaries():
-    return render_template('summaries.html', summaries=users[current_user.id]['summaries'])
+    page = request.args.get('page', 1, type=int)
+    per_page = 5
+    summaries = users[current_user.id]['summaries']
+    total = len(summaries)
+    start = (page - 1) * per_page
+    end = start + per_page
+    paginated_summaries = summaries[start:end]
+    pagination = {
+        'page': page,
+        'per_page': per_page,
+        'total': total,
+        'pages': math.ceil(total / per_page)
+    }
+    return render_template('summaries.html', summaries=paginated_summaries, pagination=pagination)
 
 if __name__ == '__main__':
     app.run(debug=True)
